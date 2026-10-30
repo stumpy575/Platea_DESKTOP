@@ -1,0 +1,12 @@
+   .root { -fx-font-family: "Manrope"; }
+   .top-bar { -fx-background-color: #FF6B5B; -fx-padding: 0 10 0 10; }
+   .login-panel { -fx-background-color: #FFFFFF; -fx-border-color: #2E0E3A; -fx-border-width: 2; -fx-padding: 20; }
+   .altea-title { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2E0E3A; -fx-padding: 10 0 10 0; }
+   .altea-subtitle { -fx-font-size: 16px; -fx-text-fill: #2E0E3A; -fx-padding: 15 0 0 30; }
+   /*colores predeterminados */
+   .color-coral { -fx-background-color: #FF6B5B; }
+   .color-rosa-vibrante { -fx-background-color: #FF3D8F; }
+   .color-morado-oscuro { -fx-background-color: #2E0E3A; }
+   .color-crema { -fx-background-color: #FFF4EF; }
+   .color-lavanda { -fx-background-color: #E7E1F0; }
+
