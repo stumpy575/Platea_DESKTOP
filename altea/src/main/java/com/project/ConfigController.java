@@ -1,6 +1,13 @@
 package com.project;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
+import java.util.Properties;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +17,7 @@ public class ConfigController {
 
     private static final String CLICKED = "button-config-place-clicked";
     private static final String UNCLICKED = "button-config-place-unclicked";
+    private static final File CONFIG = new File("config.xml");
 
     @FXML
     private Button taquillaBtn, portaBtn, oficinaBtn, confirmButton;
@@ -24,6 +32,40 @@ public class ConfigController {
         modeButtons = List.of(taquillaBtn, portaBtn, oficinaBtn);
         confirmButton.setDisable(true);
         websocketUrlField.textProperty().addListener((obs, oldV, newV) -> updateConfirm());
+
+        loadConfig();
+    }
+
+    // logica per a desar el config.xml
+    private void saveConfig(String mode, String url) {
+        Properties p = new Properties();
+        p.setProperty("mode", mode);
+        p.setProperty("websocketUrl", url);
+        try (OutputStream os = new FileOutputStream(CONFIG)) {
+            p.storeToXML(os, null);
+        } catch (IOException e) {
+            System.out.println("[ERROR] No s'ha pogut guardar config.xml: " + e.getMessage());
+        }
+    }
+
+    // logica per a carregar la configuracio en el config.xml
+    private void loadConfig() {
+        if (!CONFIG.exists()) {
+            return;
+        }
+        Properties p = new Properties();
+        try (InputStream is = new FileInputStream(CONFIG)) {
+            p.loadFromXML(is);
+        } catch (IOException e) {
+            System.out.println("[ERROR] No s'ha pogut llegir config.xml: " + e.getMessage());
+            return;
+        }
+        websocketUrlField.setText(p.getProperty("websocketUrl", ""));
+        switch (p.getProperty("mode", "")) {
+            case "taquilla" -> selectTaquilla();
+            case "porta" -> selectPorta();
+            case "oficina" -> selectOficina();
+        }
     }
 
     @FXML
@@ -41,7 +83,6 @@ public class ConfigController {
         selectMode("oficina", oficinaBtn);
     }
 
-    // Marca el botón elegido (clase "clicked") y deja los demás en "unclicked"
     private void selectMode(String mode, Button selected) {
         selectedMode = mode;
         for (Button b : modeButtons) {
@@ -51,34 +92,30 @@ public class ConfigController {
         updateConfirm();
     }
 
-    // Confirmar solo se activa con un modo elegido y una URL escrita
     private void updateConfirm() {
+        //checa que hagi mode i url
         boolean ready = selectedMode != null && !websocketUrlField.getText().isBlank();
         confirmButton.setDisable(!ready);
     }
 
     @FXML
     private void confirm() {
-        Main.mode = selectedMode;
-        Main.websocketUrl = websocketUrlField.getText().trim();
+        String url = websocketUrlField.getText().trim();
 
-        /*String viewId = switch (selectedMode) {
-            case "taquilla" -> Main.VIEW_TAQUILLA;
-            case "porta" -> Main.VIEW_PUERTA;
-            default -> Main.VIEW_OFICINA;
-        };
-
-        // Si la vista aún no está registrada en Main, no se cambia de pantalla
-        Object ctrl = UtilsViews.getController(viewId);
-        if (ctrl == null) {
-            System.out.println("La vista " + viewId + " todavía no está añadida en Main");
+        if (!url.startsWith("ws://") && !url.startsWith("wss://")) {
+            System.out.println("[ERROR] La URL ha de començar per ws:// o wss://");
             return;
         }
 
-        if (ctrl instanceof TaquillaController c) c.onShow();
-        else if (ctrl instanceof PuertaController c) c.onShow();
-        else if (ctrl instanceof OficinaController c) c.onShow();
+        Main.mode = selectedMode;
+        Main.websocketUrl = url;
 
-        UtilsViews.setViewAnimating(viewId); */
+        saveConfig(selectedMode, url);
+        Main.connectToServer();
+
+        /* String viewId = switch (selectedMode) {
+            aqui el canvi a les següents vistes
+        };
+        */
     }
 }
