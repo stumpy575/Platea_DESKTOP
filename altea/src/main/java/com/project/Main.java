@@ -25,6 +25,8 @@ public class Main extends Application {
     public static String mode = null;          // variable per a si es taquilla, porta o oficina
     public static String websocketUrl = "";
     public static UtilsWS wsClient;
+    public static EventsController ctrlEvents;
+    public static MapController ctrlMap;
     public static List<Esdeveniment> events = new ArrayList<>();
     public static Map<String, List<TipusEntrada>> tipusEntrada = new LinkedHashMap<>();
 
@@ -33,6 +35,11 @@ public class Main extends Application {
 
         // Carrega la vista inicial des del fitxer FXML
         UtilsViews.addView(getClass(), "viewConfig", FXML_PATH + "viewConfig.fxml");
+        UtilsViews.addView(getClass(), "ViewEvents", FXML_PATH + "viewEvents.fxml");
+        UtilsViews.addView(getClass(), "ViewMap", FXML_PATH + "viewMap.fxml");
+
+        ctrlEvents = (EventsController) UtilsViews.getController("ViewEvents");
+        ctrlMap = (MapController) UtilsViews.getController("ViewMap");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
         //si no afegeixo aqui el style no carrega i surt tot sense estil

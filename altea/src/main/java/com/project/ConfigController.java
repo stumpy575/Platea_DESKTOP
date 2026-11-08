@@ -46,6 +46,7 @@ public class ConfigController {
     private List<Button> modeButtons;
     private String selectedMode = null;
     private boolean connected = false;
+    private boolean showEventsWhenReady = false;
 
     @FXML
     private void initialize() {
@@ -82,9 +83,12 @@ public class ConfigController {
         }
         websocketUrlField.setText(p.getProperty("websocketUrl", ""));
         switch (p.getProperty("mode", "")) {
-            case "taquilla" -> selectTaquilla();
-            case "porta" -> selectPorta();
-            case "oficina" -> selectOficina();
+            case "taquilla" ->
+                selectTaquilla();
+            case "porta" ->
+                selectPorta();
+            case "oficina" ->
+                selectOficina();
         }
     }
 
@@ -143,12 +147,8 @@ public class ConfigController {
 
         saveConfig(selectedMode, url);
         showStatus("info", "Connectant a " + url + "...");
+        showEventsWhenReady = true;
         connectToServer(url);
-
-        /* String viewId = switch (selectedMode) {
-            aqui el canvi a les següents vistes
-        };
-        */
     }
 
     private void connectToServer(String url) {
@@ -159,7 +159,9 @@ public class ConfigController {
         Main.wsClient = ws;
 
         ws.onOpen(message -> Platform.runLater(() -> {
-            if (ws != Main.wsClient) return;
+            if (ws != Main.wsClient) {
+                return;
+            }
             connected = true;
             System.out.println("[OK] Connexió establerta: " + message);
             showStatus("ok", "Connexió establerta amb " + url);
@@ -169,7 +171,9 @@ public class ConfigController {
         }));
 
         ws.onMessage(message -> Platform.runLater(() -> {
-            if (ws != Main.wsClient) return;
+            if (ws != Main.wsClient) {
+                return;
+            }
             try {
                 JSONObject obj = new JSONObject(message);
                 String type = obj.optString("type");
@@ -189,7 +193,9 @@ public class ConfigController {
         }));
 
         ws.onError(message -> Platform.runLater(() -> {
-            if (ws != Main.wsClient) return;
+            if (ws != Main.wsClient) {
+                return;
+            }
             System.out.println("[ERROR] No s'ha pogut connectar: " + message);
             if (message.contains("is not a valid URI")) {
                 showStatus("error", "La URL no és vàlida");
@@ -199,7 +205,9 @@ public class ConfigController {
         }));
 
         ws.onClose(message -> Platform.runLater(() -> {
-            if (ws != Main.wsClient) return;
+            if (ws != Main.wsClient) {
+                return;
+            }
             System.out.println("[CLOSE] " + message);
             if (connected) {
                 connected = false;
@@ -239,6 +247,14 @@ public class ConfigController {
         Main.events.sort(Comparator.comparing(Esdeveniment::dataHora));
         System.out.println("[CATALEG] " + Main.events.size() + " esdeveniments rebuts");
 
+        // Oople la llista de la vista d'esdeveniments
+        Main.ctrlEvents.setEvents(Main.events);
+
+        if (showEventsWhenReady) {
+            showEventsWhenReady = false;
+            UtilsViews.setViewAnimating("ViewEvents");
+        }
+
         for (Esdeveniment e : Main.events) {
             Main.wsClient.safeSend(new JSONObject()
                     .put("type", "getTiposEntrada")
@@ -266,5 +282,6 @@ public class ConfigController {
         }
         Main.tipusEntrada.put(eventoId, lista);
         System.out.println("[CATALEG] " + eventoId + ": " + lista.size() + " tipus d'entrada");
+        Main.ctrlEvents.updateTipusEntrada(eventoId);
     }
 }
