@@ -1,7 +1,14 @@
 package com.project;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.project.ServerModel.Esdeveniment;
+import com.project.ServerModel.TipusEntrada;
+
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -17,8 +24,9 @@ public class Main extends Application {
 
     public static String mode = null;          // variable per a si es taquilla, porta o oficina
     public static String websocketUrl = "";
-
     public static UtilsWS wsClient;
+    public static List<Esdeveniment> events = new ArrayList<>();
+    public static Map<String, List<TipusEntrada>> tipusEntrada = new LinkedHashMap<>();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -51,23 +59,6 @@ public class Main extends Application {
             wsClient.forceExit();
         }
         System.exit(0);
-    }
-
-    public static void connectToServer() {
-        System.out.println("Connectant a " + websocketUrl + " (mode: " + mode + ") ...");
-
-        wsClient = UtilsWS.getSharedInstance(websocketUrl);
-
-        wsClient.onOpen(msg -> Platform.runLater(()
-                -> System.out.println("[OK] Connexió establerta: " + msg)));
-        wsClient.onError(msg -> Platform.runLater(()
-                -> System.out.println("[ERROR] No s'ha pogut connectar: " + msg)));
-        wsClient.onClose(msg -> Platform.runLater(()
-                -> System.out.println("[CLOSE] " + msg)));
-        wsClient.onMessage(msg -> Platform.runLater(()
-                -> System.out.println("[MSG] " + msg)));
-
-        wsClient.connect();
     }
 
     public static void main(String[] args) {

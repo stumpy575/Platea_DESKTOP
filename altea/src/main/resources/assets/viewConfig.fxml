@@ -42,7 +42,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="color-crema" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ConfigController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" styleClass="color-crema" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ConfigController">
    <top>
       <HBox prefHeight="40.0" prefWidth="600.0" styleClass="top-bar" BorderPane.alignment="CENTER">
          <children>
@@ -78,7 +78,6 @@
                      </children>
                   </HBox>
 
-                  <!-- Campo WebSocket URL con título arriba -->
                   <VBox styleClass="field-group">
                      <children>
                         <Label styleClass="altea-field-label" text="WebSocket URL" />
@@ -86,10 +85,15 @@
                      </children>
                   </VBox>
 
-                  <!-- Botón Confirmar, abajo a la derecha -->
                   <HBox styleClass="confirm-row">
                      <children>
                         <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirm" styleClass="button-confirm" text="Confirmar" />
+                     </children>
+                  </HBox>
+
+                  <HBox fx:id="statusRow" managed="false" styleClass="confirm-row" visible="false">
+                     <children>
+                        <Label fx:id="statusLabel" styleClass="status-label" wrapText="true" />
                      </children>
                   </HBox>
                </children>
