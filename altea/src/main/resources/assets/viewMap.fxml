@@ -3,9 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -33,19 +34,29 @@
       </HBox>
    </top>
    <center>
-      <StackPane BorderPane.alignment="CENTER">
-         <children>
-            <VBox spacing="10.0" styleClass="map-placeholder">
-               <StackPane.margin>
-                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
-               </StackPane.margin>
+      <ScrollPane fitToWidth="true" styleClass="event-scroll" BorderPane.alignment="CENTER">
+         <content>
+            <VBox spacing="12.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
                <children>
                   <Label fx:id="txtNom" styleClass="map-title" wrapText="true" />
                   <Label fx:id="txtRecinte" styleClass="event-card-meta" />
-                  <Label styleClass="map-pending" text="Mapa gràfic de la sala (pendent)" />
+                  <Label maxWidth="Infinity" styleClass="map-stage" text="ESCENARI / PANTALLA" />
+                  <HBox fx:id="zonesPane" alignment="TOP_LEFT" spacing="15.0" />
+                  <HBox alignment="CENTER_LEFT" spacing="8.0">
+                     <children>
+                        <Region styleClass="seat, seat-free" />
+                        <Label styleClass="event-card-meta" text="Lliure" />
+                        <Region minWidth="10.0" />
+                        <Region styleClass="seat, seat-occupied" />
+                        <Label styleClass="event-card-meta" text="Ocupat" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-         </children>
-      </StackPane>
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>

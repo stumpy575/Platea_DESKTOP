@@ -55,9 +55,22 @@
 .event-card-price { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -color-morado; }
 
 /* mapa */
-.map-placeholder { -fx-background-color: #FFFFFF; -fx-border-color: rgba(46, 14, 58, 0.35); -fx-border-style: dashed; -fx-border-width: 1.5; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 30; -fx-alignment: center; }
 .map-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: -color-morado; }
-.map-pending { -fx-font-size: 14px; -fx-text-fill: rgba(46, 14, 58, 0.7); }
+.map-stage { -fx-background-color: -color-lavanda; -fx-border-color: rgba(46, 14, 58, 0.35); -fx-border-width: 1; -fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 5 10 5 10; -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: rgba(46, 14, 58, 0.7); -fx-alignment: center; }
+
+.zone-card { -fx-background-color: #FFFFFF; -fx-border-color: -color-morado; -fx-border-width: 1.5; -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 14; -fx-spacing: 6; }
+.zone-title { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: -color-morado; }
+.zone-standing { -fx-border-color: rgba(46, 14, 58, 0.35); -fx-border-style: dashed; -fx-border-width: 1.5; -fx-border-radius: 8; -fx-padding: 14; }
+.zone-count { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: -color-morado; }
+
+.seat { -fx-min-width: 24px; -fx-min-height: 24px; -fx-pref-width: 24px; -fx-pref-height: 24px; -fx-max-width: 24px; -fx-max-height: 24px; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1; }
+.seat-free { -fx-background-color: -color-crema; -fx-border-color: rgba(46, 14, 58, 0.45); }
+.seat-occupied { -fx-background-color: -color-coral; -fx-border-color: -color-morado; }
+.seat-row-label { -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: rgba(46, 14, 58, 0.7); -fx-min-width: 16px; -fx-alignment: center; }
+
+.occupancy-bar { -fx-pref-height: 10px; }
+.occupancy-bar > .track { -fx-background-color: -color-lavanda; -fx-background-radius: 5; -fx-background-insets: 0; }
+.occupancy-bar > .bar { -fx-background-color: -color-coral; -fx-background-radius: 5; -fx-background-insets: 0; -fx-padding: 5; }
 
 /* Colores estandar */
 .color-coral { -fx-background-color: -color-coral; }

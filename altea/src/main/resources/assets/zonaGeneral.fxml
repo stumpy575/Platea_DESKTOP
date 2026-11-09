@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="6.0" styleClass="zone-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ZonaGeneralController">
+   <children>
+      <Label fx:id="txtNom" styleClass="zone-title" />
+      <Label fx:id="txtInfo" styleClass="event-card-meta" />
+      <VBox alignment="CENTER" spacing="8.0" styleClass="zone-standing" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="txtOcupacio" styleClass="zone-count" />
+            <ProgressBar fx:id="barOcupacio" maxWidth="Infinity" progress="0.0" styleClass="occupancy-bar" />
+            <Label styleClass="event-card-meta" text="ocupades" />
+         </children>
+      </VBox>
+   </children>
+</VBox>

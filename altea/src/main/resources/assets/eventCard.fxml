@@ -24,7 +24,7 @@
             <Label fx:id="txtPreu" styleClass="event-card-price" />
             <Label fx:id="txtDisponibles" styleClass="event-card-meta" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnMapa" mnemonicParsing="false" onAction="#openMapa" styleClass="button-confirm" text="Veure sala" />
+            <Button fx:id="btnMapa" mnemonicParsing="false" onAction="#openMap" styleClass="button-confirm" text="Veure sala" />
          </children>
       </HBox>
    </children>

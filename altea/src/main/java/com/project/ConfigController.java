@@ -245,6 +245,8 @@ public class ConfigController {
             }
         }
         Main.events.sort(Comparator.comparing(Esdeveniment::dataHora));
+        //Main.events.forEach(e -> System.out.println("[CATALEG] " + e));
+        //per a veure els esdeveniments nomes
         System.out.println("[CATALEG] " + Main.events.size() + " esdeveniments rebuts");
 
         // Oople la llista de la vista d'esdeveniments
