@@ -7,12 +7,12 @@
 <VBox spacing="6.0" styleClass="zone-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ZonaGeneralController">
    <children>
       <Label fx:id="txtNom" styleClass="zone-title" />
-      <Label fx:id="txtInfo" styleClass="event-card-meta" />
+      <Label fx:id="txtInfo" styleClass="text-petit" />
       <VBox alignment="CENTER" spacing="8.0" styleClass="zone-standing" VBox.vgrow="ALWAYS">
          <children>
             <Label fx:id="txtOcupacio" styleClass="zone-count" />
             <ProgressBar fx:id="barOcupacio" maxWidth="Infinity" progress="0.0" styleClass="occupancy-bar" />
-            <Label styleClass="event-card-meta" text="ocupades" />
+            <Label styleClass="text-petit" text="lliures" />
          </children>
       </VBox>
    </children>

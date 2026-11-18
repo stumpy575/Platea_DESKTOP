@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" styleClass="color-crema" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.PortaController">
+   <top>
+      <HBox prefHeight="40.0" prefWidth="600.0" styleClass="top-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Label styleClass="altea-title" text="Altea">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" styleClass="altea-subtitle" text="Porta">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Label maxWidth="Infinity" styleClass="altea-slogan" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#backToConfig" styleClass="button-top" text="Configuració">
+               <HBox.margin>
+                  <Insets top="14.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox maxWidth="500.0" spacing="15.0" BorderPane.alignment="TOP_CENTER">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+         </padding>
+         <children>
+            <VBox spacing="8.0" styleClass="zone-card">
+               <children>
+                  <Label styleClass="altea-field-label" text="Localitzador de l'entrada" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <TextField fx:id="localitzadorField" onAction="#validar" promptText="ALT-..." styleClass="altea-textfield" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#validar" styleClass="button-confirm" text="Validar" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="panelResultat" managed="false" spacing="8.0" styleClass="zone-card" visible="false">
+               <children>
+                  <Label fx:id="txtResultat" styleClass="porta-result" />
+                  <Label fx:id="txtTitular" styleClass="porta-detail" wrapText="true" />
+                  <Label fx:id="txtTipus" styleClass="porta-detail" />
+                  <Label fx:id="txtSeient" styleClass="porta-detail" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

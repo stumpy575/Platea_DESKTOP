@@ -17,12 +17,12 @@
          </children>
       </HBox>
       <Label fx:id="txtNom" styleClass="event-card-title" wrapText="true" />
-      <Label fx:id="txtRecinte" styleClass="event-card-meta" />
+      <Label fx:id="txtRecinte" styleClass="text-petit" />
       <Label fx:id="txtDescripcio" styleClass="event-card-description" wrapText="true" />
       <HBox alignment="CENTER_LEFT" spacing="15.0">
          <children>
             <Label fx:id="txtPreu" styleClass="event-card-price" />
-            <Label fx:id="txtDisponibles" styleClass="event-card-meta" />
+            <Label fx:id="txtDisponibles" styleClass="text-petit" />
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="btnMapa" mnemonicParsing="false" onAction="#openMap" styleClass="button-confirm" text="Veure sala" />
          </children>

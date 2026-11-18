@@ -13,10 +13,10 @@ public class ZonaGeneralController {
     @FXML
     private ProgressBar barOcupacio;
 
-    public void setZona(Zona zona, int ocupades) {
+    public void setZona(Zona zona, int lliures) {
         txtNom.setText(zona.nom());
         txtInfo.setText("General · aforament " + zona.aforament());
-        txtOcupacio.setText(ocupades + " / " + zona.aforament());
-        barOcupacio.setProgress(zona.aforament() == 0 ? 0 : (double) ocupades / zona.aforament());
+        txtOcupacio.setText(lliures + " / " + zona.aforament());
+        barOcupacio.setProgress(zona.aforament() == 0 ? 0 : (double) lliures / zona.aforament());
     }
 }

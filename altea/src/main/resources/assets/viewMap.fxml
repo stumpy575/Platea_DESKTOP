@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
@@ -42,18 +43,37 @@
                </padding>
                <children>
                   <Label fx:id="txtNom" styleClass="map-title" wrapText="true" />
-                  <Label fx:id="txtRecinte" styleClass="event-card-meta" />
+                  <Label fx:id="txtRecinte" styleClass="text-petit" />
                   <Label maxWidth="Infinity" styleClass="map-stage" text="ESCENARI / PANTALLA" />
                   <HBox fx:id="zonesPane" alignment="TOP_LEFT" spacing="15.0" />
                   <HBox alignment="CENTER_LEFT" spacing="8.0">
                      <children>
                         <Region styleClass="seat, seat-free" />
-                        <Label styleClass="event-card-meta" text="Lliure" />
+                        <Label styleClass="text-petit" text="Lliure" />
                         <Region minWidth="10.0" />
                         <Region styleClass="seat, seat-occupied" />
-                        <Label styleClass="event-card-meta" text="Ocupat" />
+                        <Label styleClass="text-petit" text="Ocupat" />
+                        <Region minWidth="10.0" />
+                        <Region styleClass="seat, seat-validated" />
+                        <Label styleClass="text-petit" text="Validat" />
                      </children>
                   </HBox>
+                  <VBox fx:id="panelVenda" managed="false" spacing="4.0" styleClass="zone-card" visible="false">
+                     <children>
+                        <Label fx:id="txtVendaSeient" styleClass="zone-title" />
+                        <Label fx:id="txtVendaTitular" styleClass="text-petit" />
+                        <Label fx:id="txtVendaComprador" styleClass="text-petit" />
+                        <Label fx:id="txtVendaLocalitzador" styleClass="text-petit" />
+                        <Label fx:id="txtVendaData" styleClass="text-petit" />
+                        <Label fx:id="txtVendaPreu" styleClass="text-petit" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="8.0" styleClass="zone-card">
+                     <children>
+                        <Label fx:id="txtEntrades" styleClass="zone-title" />
+                        <GridPane fx:id="entradesGrid" hgap="14.0" vgap="6.0" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </content>

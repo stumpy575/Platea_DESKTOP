@@ -19,7 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.project.ServerModel.Esdeveniment;
+import com.project.ServerModel.Recinte;
 import com.project.ServerModel.TipusEntrada;
+import com.project.ServerModel.Zona;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -166,8 +168,9 @@ public class ConfigController {
             System.out.println("[OK] Connexió establerta: " + message);
             showStatus("ok", "Connexió establerta amb " + url);
 
-            // demana el cataleg aqui
+            // demana el cataleg i els recintes aqui
             ws.safeSend(new JSONObject().put("type", "getEventos").toString());
+            ws.safeSend(new JSONObject().put("type", "getRecintos").toString());
         }));
 
         ws.onMessage(message -> Platform.runLater(() -> {
@@ -182,8 +185,18 @@ public class ConfigController {
                     handleEvents(obj);
                 } else if ("tiposEntrada".equals(type)) {
                     handleTipusEntrada(obj);
+                } else if ("recintos".equals(type)) {
+                    handleRecintes(obj);
+                } else if ("entradasEvento".equals(type)) {
+                    Main.ctrlMap.handleEntrades(obj);
+                } else if ("validacionEntrada".equals(type)) {
+                    Main.ctrlPorta.handleValidacio(obj);
                 } else if ("error".equals(type)) {
                     System.out.println("[SRV ERROR] " + obj.optString("message", "(sense missatge)"));
+                    // a la porta l'error es mostra a la pantalla
+                    if ("porta".equals(Main.mode)) {
+                        Main.ctrlPorta.showError(obj.optString("message"));
+                    }
                 } else {
                     System.out.println("[MSG] " + message);
                 }
@@ -254,7 +267,12 @@ public class ConfigController {
 
         if (showEventsWhenReady) {
             showEventsWhenReady = false;
-            UtilsViews.setViewAnimating("ViewEvents");
+            // el mode porta va a la vista de validar entrades
+            if ("porta".equals(Main.mode)) {
+                UtilsViews.setViewAnimating("ViewPorta");
+            } else {
+                UtilsViews.setViewAnimating("ViewEvents");
+            }
         }
 
         for (Esdeveniment e : Main.events) {
@@ -285,5 +303,34 @@ public class ConfigController {
         Main.tipusEntrada.put(eventoId, lista);
         System.out.println("[CATALEG] " + eventoId + ": " + lista.size() + " tipus d'entrada");
         Main.ctrlEvents.updateTipusEntrada(eventoId);
+    }
+
+    // els recintes es desen al main per id, les zones generals no tenen files
+    private void handleRecintes(JSONObject obj) {
+        JSONArray array = obj.optJSONArray("recintos");
+        if (array == null) {
+            return;
+        }
+
+        Main.recintes.clear();
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject r = array.getJSONObject(i);
+            JSONArray zonesJson = r.optJSONArray("zonas");
+            List<Zona> zones = new ArrayList<>();
+            if (zonesJson != null) {
+                for (int j = 0; j < zonesJson.length(); j++) {
+                    JSONObject z = zonesJson.getJSONObject(j);
+                    zones.add(new Zona(
+                            z.optString("id"),
+                            z.optString("nombre"),
+                            z.optString("tipo"),
+                            z.optInt("aforo"),
+                            z.optInt("filas", 0),
+                            z.optInt("asientosPorFila", 0)));
+                }
+            }
+            Main.recintes.put(r.optString("id"), new Recinte(r.optString("id"), r.optString("nombre"), zones));
+        }
+        System.out.println("[CATALEG] " + Main.recintes.size() + " recintes rebuts");
     }
 }

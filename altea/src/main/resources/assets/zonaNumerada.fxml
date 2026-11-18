@@ -7,7 +7,7 @@
 <VBox spacing="6.0" styleClass="zone-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.ZonaNumeradaController">
    <children>
       <Label fx:id="txtNom" styleClass="zone-title" />
-      <Label fx:id="txtInfo" styleClass="event-card-meta" />
+      <Label fx:id="txtInfo" styleClass="text-petit" />
       <GridPane fx:id="seatGrid" hgap="5.0" vgap="5.0" />
    </children>
 </VBox>

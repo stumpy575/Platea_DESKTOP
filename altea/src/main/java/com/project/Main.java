@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.project.ServerModel.Esdeveniment;
+import com.project.ServerModel.Recinte;
 import com.project.ServerModel.TipusEntrada;
 
 import javafx.application.Application;
@@ -27,8 +28,10 @@ public class Main extends Application {
     public static UtilsWS wsClient;
     public static EventsController ctrlEvents;
     public static MapController ctrlMap;
+    public static PortaController ctrlPorta;
     public static List<Esdeveniment> events = new ArrayList<>();
     public static Map<String, List<TipusEntrada>> tipusEntrada = new LinkedHashMap<>();
+    public static Map<String, Recinte> recintes = new LinkedHashMap<>();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -37,9 +40,11 @@ public class Main extends Application {
         UtilsViews.addView(getClass(), "viewConfig", FXML_PATH + "viewConfig.fxml");
         UtilsViews.addView(getClass(), "ViewEvents", FXML_PATH + "viewEvents.fxml");
         UtilsViews.addView(getClass(), "ViewMap", FXML_PATH + "viewMap.fxml");
+        UtilsViews.addView(getClass(), "ViewPorta", FXML_PATH + "viewPorta.fxml");
 
         ctrlEvents = (EventsController) UtilsViews.getController("ViewEvents");
         ctrlMap = (MapController) UtilsViews.getController("ViewMap");
+        ctrlPorta = (PortaController) UtilsViews.getController("ViewPorta");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
         //si no afegeixo aqui el style no carrega i surt tot sense estil

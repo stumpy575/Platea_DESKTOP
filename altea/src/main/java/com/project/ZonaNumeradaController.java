@@ -16,10 +16,10 @@ public class ZonaNumeradaController {
     @FXML
     private GridPane seatGrid;
 
-    public void setZona(Zona zona, Set<String> ocupats) {
+    public void setZona(Zona zona, Set<String> ocupats, Set<String> validats) {
         txtNom.setText(zona.nom());
-        txtInfo.setText(String.format("Numerada | %d files X %d seients = %d",
-                zona.files(), zona.seientsPerFila(), zona.files() * zona.seientsPerFila()));
+        txtInfo.setText(String.format("Numerada | %d files x %d seients | %d / %d venuts",
+                zona.files(), zona.seientsPerFila(), ocupats.size(), zona.aforament()));
 
         seatGrid.getChildren().clear();
 
@@ -35,7 +35,16 @@ public class ZonaNumeradaController {
 
                 Region seat = new Region();
                 seat.getStyleClass().add("seat");
-                seat.getStyleClass().add(ocupats.contains(id) ? "seat-occupied" : "seat-free");
+                if (validats.contains(id)) {
+                    seat.getStyleClass().add("seat-validated");
+                } else if (ocupats.contains(id)) {
+                    seat.getStyleClass().add("seat-occupied");
+                } else {
+                    seat.getStyleClass().add("seat-free");
+                }
+                if (ocupats.contains(id)) {
+                    seat.setOnMouseClicked(e -> Main.ctrlMap.showVenda(zona, id));
+                }
                 seatGrid.add(seat, n, f);
             }
         }
